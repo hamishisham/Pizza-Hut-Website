@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Item Details</title>
+  <script src="../src/js/item.js" defer></script>
+  <script src="../src/js/cart.js" defer></script>
+  <link rel="stylesheet" href="../src/css/output.css">
+</head>
+<body class="bg-gray-100 p-10 flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="absolute top-0 left-0 w-full p-4 text-red text-xl font-bold flex justify-between items-center z-50">
+      <div class="flex items-center space-x-4 md:w-auto">
+        <a href="index.html">
+          <img src="../src/assets/images/Pizza_Hut_logo 1.png" alt="Pizza Hut" class="w-12 h-auto">
+        </a>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search..."
+          class="w-full md:w-64 lg:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent"
+        />
+        <div id="resultsDropdown" class="absolute bg-white border rounded-lg w-full mt-2 shadow-md hidden"></div>
+      </div>
+  
+      <ul class="hidden md:flex space-x-8 items-center">
+        <li><a href="index.html#menu" class="hover:underline">Menu</a></li>
+        <li>
+          <a href="cart.html" class="hover:underline flex items-center space-x-1">
+            <i class="fas fa-shopping-cart"></i>
+            Cart <span id="cartCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+          </a>
+        </li>
+        <li>
+          <a href="wishlist.html" class="hover:underline flex items-center space-x-1">
+            <i class="fas fa-heart"></i>
+            Wishlist <span id="wishlistCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+          </a>
+        </li>
+      </ul>
+  
+      <button class="md:hidden text-3xl">☰</button>
+    </nav>
+  
+
+  <!-- Item Details Section -->
+  <div class="flex items-center justify-center min-h-screen">
+    <div id="itemDetails" class="bg-white p-10 rounded-lg shadow-md flex gap-10 w-3/4">
+      <!-- Item details will be injected here by JS -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white p-6 text-center mt-auto w-full">
+    <p>&copy; 2025 All rights reserved - Pizza Hut</p>
+    <div class="mt-2">
+      <a href="#" class="px-2">📘 Facebook</a>
+      <a href="#" class="px-2">📸 Instagram</a>
+      <a href="#" class="px-2">🐦 Twitter</a>
+    </div>
+  </footer>
+
+</body>
+</html>

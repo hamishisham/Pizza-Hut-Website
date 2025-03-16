@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | Pizza Hut</title>
+    <script src="../src/js/item.js" defer></script>
+    <script src="../src/js/cart.js" defer></script>
+    <link rel="stylesheet" href="../src/css/output.css">
+</head>
+<body class="bg-white text-gray-900 flex flex-col min-h-screen">
+  
+     <!-- Navbar -->
+   <nav id="navbar" class="absolute top-0 left-0 w-full p-4 text-red text-xl font-bold flex justify-between items-center z-50">
+    <div class="flex items-center space-x-4 md:w-auto">
+      <a href="index.html">
+        <img src="../src/assets/images/Pizza_Hut_logo 1.png" alt="Pizza Hut" class="w-12 h-auto">
+      </a>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search..."
+        class="w-full md:w-64 lg:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent"
+      />
+      <div id="resultsDropdown" class="absolute bg-white border rounded-lg w-full mt-2 shadow-md hidden"></div>
+    </div>
+
+    <ul class="hidden md:flex space-x-8 items-center">
+      <li><a href="index.html#menu" class="hover:underline">Menu</a></li>
+      <li>
+        <a href="cart.html" class="hover:underline flex items-center space-x-1">
+          <i class="fas fa-shopping-cart"></i>
+          Cart <span id="cartCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+        </a>
+      </li>
+      <li>
+        <a href="wishlist.html" class="hover:underline flex items-center space-x-1">
+          <i class="fas fa-heart"></i>
+          Wishlist <span id="wishlistCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+        </a>
+      </li>
+    </ul>
+
+    <button class="md:hidden text-3xl">☰</button>
+  </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-6 mt-16">
+        <h2 class="text-3xl font-bold mb-6 text-center">Your Cart</h2>
+        <div id="cart-items" class="space-y-4"></div>
+        <h3 class="text-xl font-semibold mt-6 text-center">Total: $<span id="total-price">0.00</span></h3>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-darkGray text-white p-6 text-center">
+        <p>&copy; 2025 All rights reserved - Pizza Hut</p>
+        <div class="mt-2">
+            <a href="#" class="px-2">📘 Facebook</a>
+            <a href="#" class="px-2">📸 Instagram</a>
+            <a href="#" class="px-2">🐦 Twitter</a>
+        </div>
+    </footer>
+
+    <script>
+        const cartItemsContainer = document.getElementById('cart-items');
+        const totalPriceElement = document.getElementById('total-price');
+
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cartItemsContainer.innerHTML = '';
+            let totalPrice = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * (item.quantity || 1);
+                totalPrice += itemTotal;
+
+                cartItemsContainer.innerHTML += `
+                    <div class="border p-4 shadow-lg flex justify-between items-center rounded-lg">
+                        <div class="flex items-center space-x-4">
+                            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg">
+                            <div>
+                                <h3 class="text-lg font-semibold">${item.name}</h3>
+                                <p class="text-gray-600">$${item.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button onclick="decreaseQuantity(${index})" class="bg-gray-600 text-white px-3 py-1 rounded-full">➖</button>
+                            <span class="px-3">${item.quantity || 1}</span>
+                            <button onclick="increaseQuantity(${index})" class="bg-gray-600 text-white px-3 py-1 rounded-full">➕</button>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 text-2xl">❌</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            totalPriceElement.innerText = totalPrice.toFixed(2);
+        }
+
+        function increaseQuantity(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity = (cart[index].quantity || 1) + 1;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function decreaseQuantity(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+            } else {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font Awesome */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+/* Custom Animation */
+@keyframes slide {
+  0%, 100% { opacity: 0; }
+  33.33% { opacity: 1; }
+}
+
+.animate-slide {
+  animation: slide 12s infinite;
+}
+
+/* Body Font */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+

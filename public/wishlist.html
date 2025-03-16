@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist | Pizza Hut</title>
+    <script src="../src/js/item.js" defer></script>
+    <script src="../src/js/cart.js" defer></script>
+    <link rel="stylesheet" href="../src/css/output.css">
+</head>
+
+<body class="bg-white text-gray-900 flex flex-col min-h-screen">
+     <!-- Navbar -->
+     <nav id="navbar" class="absolute top-0 left-0 w-full p-4 text-red text-xl font-bold flex justify-between items-center z-50">
+        <div class="flex items-center space-x-4 md:w-auto">
+          <a href="index.html">
+            <img src="../src/assets/images/Pizza_Hut_logo 1.png" alt="Pizza Hut" class="w-12 h-auto">
+          </a>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search..."
+            class="w-full md:w-64 lg:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent"
+          />
+          <div id="resultsDropdown" class="absolute bg-white border rounded-lg w-full mt-2 shadow-md hidden"></div>
+        </div>
+    
+        <ul class="hidden md:flex space-x-8 items-center">
+          <li><a href="index.html#menu" class="hover:underline">Menu</a></li>
+          <li>
+            <a href="cart.html" class="hover:underline flex items-center space-x-1">
+              <i class="fas fa-shopping-cart"></i>
+              Cart <span id="cartCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="wishlist.html" class="hover:underline flex items-center space-x-1">
+              <i class="fas fa-heart"></i>
+              Wishlist <span id="wishlistCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+            </a>
+          </li>
+        </ul>
+    
+        <button class="md:hidden text-3xl">☰</button>
+      </nav>
+    
+    <!-- Wishlist Section -->
+    <main class="p-6 text-center flex-1 mt-16">
+        <h2 class="text-3xl font-bold mb-4">My Wishlist</h2>
+        <div id="wishlist-container" class="grid md:grid-cols-3 gap-6"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-darkGray text-white p-6 text-center mt-auto">
+        <p>&copy; 2025 All rights reserved - Pizza Hut</p>
+        <div class="mt-2">
+            <a href="#" class="px-2">📘 Facebook</a>
+            <a href="#" class="px-2">📸 Instagram</a>
+            <a href="#" class="px-2">🐦 Twitter</a>
+        </div>
+    </footer>
+
+    <!-- Wishlist Script -->
+    <script>
+        const wishlistContainer = document.getElementById('wishlist-container');
+
+        let wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+        // Render Wishlist
+        function renderWishlist() {
+            wishlistContainer.innerHTML = wishlistItems.map(item => `
+                <div class="p-4 border rounded-lg shadow">
+                    <img src="${item.image}" alt="${item.name}" class="w-full rounded">
+                    <h3 class="text-xl font-semibold mt-2">${item.name}</h3>
+                    <p class="text-gray-600">${item.description}</p>
+                    <div class="flex justify-between mt-2">
+                        <button class="bg-red text-white px-4 py-2 rounded add-to-cart" data-id="${item.id}">
+                            🛒 Add to Cart
+                        </button>
+                        <button class="text-red-500 text-2xl remove-from-wishlist" data-id="${item.id}">❌</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        
+        // Add to Cart
+        function addToCart(itemId) {
+            const item = wishlistItems.find(item => item.id === itemId);
+            cartItems.push(item);
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            removeFromWishlist(itemId);
+        }
+
+        // Remove from Wishlist
+        function removeFromWishlist(itemId) {
+            wishlistItems = wishlistItems.filter(item => item.id !== itemId);
+            localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+            renderWishlist();
+        }
+
+       
+        // Handle Wishlist and Cart Actions
+        document.addEventListener('click', (e) => {
+            const itemId = e.target.dataset.id;
+
+            if (e.target.classList.contains('add-to-cart')) {
+                addToCart(itemId);
+            } else if (e.target.classList.contains('remove-from-wishlist')) {
+                removeFromWishlist(itemId);
+            } else if (e.target.classList.contains('remove-from-cart')) {
+                removeFromCart(itemId);
+            }
+        });
+
+        // Initial Rendering
+        renderWishlist();
+    </script>
+</body>
+
+</html>
