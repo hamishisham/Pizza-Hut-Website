@@ -4,7 +4,6 @@ const menuContainer = document.getElementById("menuContainer");
 const buttons = document.querySelectorAll('.category-btn');
 
 // Function to create menu item HTML
-// Function to create menu item HTML
 const createMenuItem = (item) => `
   <div class="w-[250px] h-[350px] bg-white rounded-lg shadow-md flex flex-col items-center p-4">
     <img src="${item.image}" alt="${item.name}" class="w-[180px] h-[180px] rounded-full object-cover mb-4">

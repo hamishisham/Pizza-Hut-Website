@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart | Pizza Hut</title>
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
     <script src="../src/js/item.js" defer></script>
     <script src="../src/js/cart.js" defer></script>
     <link rel="stylesheet" href="../src/css/output.css">
@@ -28,15 +30,21 @@
     <ul class="hidden md:flex space-x-8 items-center">
       <li><a href="index.html#menu" class="hover:underline">Menu</a></li>
       <li>
-        <a href="cart.html" class="hover:underline flex items-center space-x-1">
-          <i class="fas fa-shopping-cart"></i>
-          Cart <span id="cartCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+        <a href="cart.html" class="hover:underline flex items-center space-x-2">
+          <span>Cart</span>
+          <div class="relative">
+            <i class="fas fa-shopping-cart text-xl"></i> 
+            <span id="cartCount" class="absolute -top-2 -right-2 bg-red text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+          </div>
         </a>
       </li>
       <li>
-        <a href="wishlist.html" class="hover:underline flex items-center space-x-1">
-          <i class="fas fa-heart"></i>
-          Wishlist <span id="wishlistCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+        <a href="wishlist.html" class="hover:underline flex items-center space-x-2">
+          <span>Wishlist</span>
+          <div class="relative">
+            <i class="fas fa-heart text-xl"></i>
+            <span id="wishlistCount" class="absolute -top-2 -right-2 bg-red text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+          </div>
         </a>
       </li>
     </ul>
@@ -111,6 +119,7 @@
                 cart.splice(index, 1);
             }
             localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
             renderCart();
         }
 
@@ -118,6 +127,7 @@
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
             renderCart();
         }
 

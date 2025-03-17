@@ -6,10 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 
   <title>Pizza Hut Restaurant</title>
   <script src="../src/js/item.js" defer></script>
   <script src="../src/js/cart.js" defer></script>
+  <script type="module"  src="../src/assets/data/menuData.js" defer></script>
+  <script src="../src/js/search.js" defer></script>
+
   <link rel="stylesheet" href="../src/css/output.css">
 
   <style>
@@ -39,20 +43,27 @@
     
   
     <ul class="hidden md:flex space-x-8 items-center">
-      <li>
-        <a href="cart.html" class="hover:underline flex items-center space-x-1">
-          <i class="fas fa-shopping-cart"></i>
-          Cart <span id="cartCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
-        </a>
-      </li>
-      <li>
-        <a href="wishlist.html" class="hover:underline flex items-center space-x-1">
-          <i class="fas fa-heart"></i>
-          Wishlist <span id="wishlistCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
-        </a>
-      </li>
-    </ul>
-  
+  <li>
+    <a href="cart.html" class="hover:underline flex items-center space-x-2">
+      <span>Cart</span>
+      <div class="relative">
+        <i class="fas fa-shopping-cart text-xl"></i> 
+        <span id="cartCount" class="absolute -top-3 -right-3 bg-red text-white text-sm w-6 h-6 flex items-center justify-center rounded-full font-bold">0</span>
+      </div>
+    </a>
+  </li>
+  <li>
+    <a href="wishlist.html" class="hover:underline flex items-center space-x-2">
+      <span>Wishlist</span>
+      <div class="relative">
+        <i class="fas fa-heart text-xl"></i>
+        <span id="wishlistCount" class="absolute -top-3 -right-3 bg-red text-white text-sm w-6 h-6 flex items-center justify-center rounded-full font-bold">0</span>
+      </div>
+    </a>
+  </li> 
+</ul>
+
+    
     <button class="md:hidden text-3xl">☰</button>
   </nav>
   
@@ -68,7 +79,7 @@
   <!-- Hero Content -->
   <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white">
     <h1 class="text-7xl font-bold">Enjoy the Best Pizza!</h1>
-    <p class="mt-4 text-xl">Order now and enjoy our special offers 🍕</p>
+    <p class="mt-4 text-xl">Order now and enjoy our special offers</p>
     <a href="#menu" class="mt-6 inline-block bg-red px-6 py-3 rounded-lg text-white font-semibold">Order Now</a>
   </div>
 </section>

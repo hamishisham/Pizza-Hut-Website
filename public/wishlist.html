@@ -8,6 +8,8 @@
     <script src="../src/js/item.js" defer></script>
     <script src="../src/js/cart.js" defer></script>
     <link rel="stylesheet" href="../src/css/output.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
 </head>
 
 <body class="bg-white text-gray-900 flex flex-col min-h-screen">
@@ -29,15 +31,21 @@
         <ul class="hidden md:flex space-x-8 items-center">
           <li><a href="index.html#menu" class="hover:underline">Menu</a></li>
           <li>
-            <a href="cart.html" class="hover:underline flex items-center space-x-1">
-              <i class="fas fa-shopping-cart"></i>
-              Cart <span id="cartCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+            <a href="cart.html" class="hover:underline flex items-center space-x-2">
+              <span>Cart</span>
+              <div class="relative">
+                <i class="fas fa-shopping-cart text-xl"></i> 
+                <span id="cartCount" class="absolute -top-2 -right-2 bg-red text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+              </div>
             </a>
           </li>
           <li>
-            <a href="wishlist.html" class="hover:underline flex items-center space-x-1">
-              <i class="fas fa-heart"></i>
-              Wishlist <span id="wishlistCount" class="bg-red text-white text-xs px-2 py-1 rounded-full">0</span>
+            <a href="wishlist.html" class="hover:underline flex items-center space-x-2">
+              <span>Wishlist</span>
+              <div class="relative">
+                <i class="fas fa-heart text-xl"></i>
+                <span id="wishlistCount" class="absolute -top-2 -right-2 bg-red text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+              </div>
             </a>
           </li>
         </ul>
@@ -63,60 +71,95 @@
 
     <!-- Wishlist Script -->
     <script>
-        const wishlistContainer = document.getElementById('wishlist-container');
+      const wishlistContainer = document.getElementById('wishlist-container');
+const cartCountElement = document.getElementById('cartCount');
+const wishlistCountElement = document.getElementById('wishlistCount');
 
-        let wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+let wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // Render Wishlist
-        function renderWishlist() {
-            wishlistContainer.innerHTML = wishlistItems.map(item => `
-                <div class="p-4 border rounded-lg shadow">
-                    <img src="${item.image}" alt="${item.name}" class="w-full rounded">
-                    <h3 class="text-xl font-semibold mt-2">${item.name}</h3>
-                    <p class="text-gray-600">${item.description}</p>
-                    <div class="flex justify-between mt-2">
-                        <button class="bg-red text-white px-4 py-2 rounded add-to-cart" data-id="${item.id}">
-                            🛒 Add to Cart
-                        </button>
-                        <button class="text-red-500 text-2xl remove-from-wishlist" data-id="${item.id}">❌</button>
-                    </div>
-                </div>
-            `).join('');
+// Render Wishlist
+function renderWishlist() {
+    wishlistContainer.innerHTML = wishlistItems.map(item => `
+        <div class="p-4 border rounded-lg shadow">
+            <img src="${item.image}" alt="${item.name}" class="w-full rounded">
+            <h3 class="text-xl font-semibold mt-2">${item.name}</h3>
+            <p class="text-gray-600">${item.description}</p>
+            <div class="flex justify-between mt-2">
+                <button class="bg-red text-white px-4 py-2 rounded add-to-cart" data-id="${item.name}">
+                    🛒 Add to Cart
+                </button>
+                <button class="text-red-500 text-2xl remove-from-wishlist" data-id="${item.name}">❌</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Add to Cart
+function addToCart(itemName) {
+    const item = wishlistItems.find(item => item.name === itemName);
+    if (item) {
+        const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            item.quantity = 1;
+            cartItems.push(item);
         }
 
+        localStorage.setItem('cart', JSON.stringify(cartItems));
         
-        // Add to Cart
-        function addToCart(itemId) {
-            const item = wishlistItems.find(item => item.id === itemId);
-            cartItems.push(item);
-            localStorage.setItem('cart', JSON.stringify(cartItems));
+        // Remove the item from the wishlist first
+        removeFromWishlist(itemName);
+        
+        // Then update the UI
+        updateCartCount();
+        
+        updateWishlistCount();
+    }
+}
+
+// Remove from Wishlist
+function removeFromWishlist(itemName) {
+    wishlistItems = wishlistItems.filter(item => item.name !== itemName);
+    localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+
+    // Ensure the UI updates properly
+    renderWishlist();
+    updateWishlistCount();
+}
+
+// Update Cart Count
+function updateCartCount() {
+    const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    cartCountElement.textContent = totalQuantity;
+}
+
+// Update Wishlist Count
+function updateWishlistCount() {
+    wishlistCountElement.textContent = wishlistItems.length;
+}
+
+// Handle Wishlist and Cart Actions
+document.addEventListener('click', (e) => {
+    const itemId = e.target.dataset.id;
+    if (itemId) {
+        if (e.target.classList.contains('add-to-cart')) {
+            addToCart(itemId);
+        } else if (e.target.classList.contains('remove-from-wishlist')) {
             removeFromWishlist(itemId);
         }
+    }
+});
 
-        // Remove from Wishlist
-        function removeFromWishlist(itemId) {
-            wishlistItems = wishlistItems.filter(item => item.id !== itemId);
-            localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
-            renderWishlist();
-        }
+// Initial Rendering
+renderWishlist();
+updateCartCount();
+updateWishlistCount();
 
-       
-        // Handle Wishlist and Cart Actions
-        document.addEventListener('click', (e) => {
-            const itemId = e.target.dataset.id;
-
-            if (e.target.classList.contains('add-to-cart')) {
-                addToCart(itemId);
-            } else if (e.target.classList.contains('remove-from-wishlist')) {
-                removeFromWishlist(itemId);
-            } else if (e.target.classList.contains('remove-from-cart')) {
-                removeFromCart(itemId);
-            }
-        });
-
-        // Initial Rendering
-        renderWishlist();
-    </script>
+  </script>
+  
 </body>
 
 </html>

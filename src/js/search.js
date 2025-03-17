@@ -5,21 +5,30 @@ const resultsDropdown = document.getElementById('resultsDropdown');
 
 // Function to search items by first letter
 function searchItems(query) {
+  console.log("Search Query:", query); // Debugging
+
   if (!query.trim()) {
-    resultsDropdown.classList.add('hidden');
+    resultsDropdown.classList.add("hidden");
+    console.log("Query is empty, hiding results.");
     return;
   }
 
-  const searchQuery = query.toLowerCase();
+  const searchQuery = query.trim().toLowerCase();
+  console.log("Formatted Query:", searchQuery);
 
-  const results = menuData.flatMap(section => 
-    section.items.filter(item => 
-      item.name.toLowerCase().startsWith(searchQuery)
-    )
+  const results = menuData.flatMap((section) =>
+    section.items.filter((item) => {
+      console.log("Checking Item:", item.name.toLowerCase());
+      return item.name.toLowerCase().startsWith(searchQuery); // Ensuring search by first letter
+    })
   );
+
+  console.log("Filtered Results:", results); // Debugging
 
   displayResults(results);
 }
+
+
 
 function displayResults(results) {
   if (results.length === 0) {
