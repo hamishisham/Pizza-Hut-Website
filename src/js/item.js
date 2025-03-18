@@ -19,7 +19,7 @@ const urlParams = new URLSearchParams(window.location.search);
             <p class="text-sm text-red-500 mb-6">If you purchase this you will earn <span class="font-bold">166-456 Points!</span></p>
 
             <!-- Buttons -->
-            <button onclick="addToCart('${item.name}')" class="bg-red text-white py-2 px-6 rounded-md mr-4 hover:bg-red-700">
+            <button onclick="addToCart('${item.name}')" class="bg-red-500 text-white py-2 px-6 rounded-md mr-4 hover:bg-red-700">
               🛒 Add to Cart
             </button>
             <button onclick="addToWishlist('${item.name}')" class="bg-gray-600 text-white py-2 px-6 rounded-md hover:bg-gray-700">

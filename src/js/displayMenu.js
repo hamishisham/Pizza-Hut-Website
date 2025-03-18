@@ -10,7 +10,7 @@ const createMenuItem = (item) => `
     <h3 class="text-lg font-semibold">${item.name}</h3>
     <p class="text-sm text-gray-600 mb-2">${item.description}</p>
     <p class="font-bold text-black text-md mb-3">${item.price} EGP</p>
-    <a href="item.html?name=${encodeURIComponent(item.name)}" class="bg-red text-white text-sm py-2 px-6 rounded-md">Select Options</a>
+    <a href="item.html?name=${encodeURIComponent(item.name)}" class="bg-red-500 text-white text-sm py-2 px-6 rounded-md">Select Options</a>
   </div>
 `;
 
