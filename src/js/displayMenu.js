@@ -1,4 +1,4 @@
-import menuData from '../assets/data/menuData.js';
+import menuData from '../../public/menuData.js';
 
 const menuContainer = document.getElementById("menuContainer");
 const buttons = document.querySelectorAll('.category-btn');
