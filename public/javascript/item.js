@@ -9,7 +9,7 @@ if (item) {
   document.getElementById('itemDetails').innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Item Image -->
-      <img src="../src/assets/images/${item.image.split('/').pop()}" 
+      <img src="${item.image}" 
            class="w-full h-auto max-h-[500px] rounded-lg object-cover" 
            alt="${item.name}">
 

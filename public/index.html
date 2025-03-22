@@ -5,10 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pizza Hut Restaurant</title>
-  <script src="../src/javascript/cart.js" defer></script>
-  <script type="module" src="../src/javascript/search.js"></script>
+  <script type="module" src="./javascript/search.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
   
 </head>
 
@@ -76,9 +77,9 @@
   </div>
 
   <!-- Background Images -->
-  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('../src/assets/images/header.jpg');"></div>
-  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('../src/assets/images/pasta.jpg'); animation-delay: 4s;"></div>
-  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('../src/assets/images/restaurant.jpg'); animation-delay: 8s;"></div>
+  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('./images/header.jpg');"></div>
+  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('./images/pasta.jpg'); animation-delay: 4s;"></div>
+  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('./images/restaurant.jpg'); animation-delay: 8s;"></div>
 
   <!-- Hero Content -->
   <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white text-center px-6">
@@ -204,6 +205,8 @@
       <a href="#" class="px-2">🐦 Twitter</a>
     </div>
   </footer>
+  <script type="module"  src="./javascript/cart.js" defer></script>
+
   <script type="module" src="./javascript/item.js" defer></script>
   <script type="module" src="./javascript/menuData.js"></script>
   <script type="module" src="./javascript/displayMenu.js"></script>
