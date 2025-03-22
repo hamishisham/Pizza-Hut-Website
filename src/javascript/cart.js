@@ -1,15 +1,17 @@
+import menuData from './menuData.js';
+
 // Add to Cart
-function addToCart(itemName) {
+window.addToCart = function(itemName) {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const item = menuData.flatMap(section => section.items).find(item => item.name === itemName);
-  
+
   if (item) {
       const existingItem = cart.find(cartItem => cartItem.name === itemName);
-      
+
       if (existingItem) {
-          existingItem.quantity = (existingItem.quantity || 1) + 1; // Increase quantity
+          existingItem.quantity = (existingItem.quantity || 1) + 1;
       } else {
-          item.quantity = 1; // Initialize quantity if new
+          item.quantity = 1;
           cart.push(item);
       }
 
@@ -17,13 +19,13 @@ function addToCart(itemName) {
       updateCartCount();
       alert('Item added to cart!');
   }
-}
+};
 
 // Add to Wishlist
-function addToWishlist(itemName) {
+window.addToWishlist = function(itemName) {
   const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   const item = menuData.flatMap(section => section.items).find(item => item.name === itemName);
-  
+
   if (item) {
       const existingItem = wishlist.find(wishlistItem => wishlistItem.name === itemName);
 
@@ -36,7 +38,8 @@ function addToWishlist(itemName) {
           alert('Item is already in your wishlist!');
       }
   }
-}
+};
+
 
 // Update Cart Count (Unique Items)
 function updateCartCount() {

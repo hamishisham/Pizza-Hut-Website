@@ -1,4 +1,4 @@
-import menuData from '../assets/data/menuData.js';
+import menuData from './menuData.js';
 
 const searchInput = document.getElementById('searchInput');
 const resultsDropdown = document.getElementById('resultsDropdown');

@@ -4,16 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-
   <title>Pizza Hut Restaurant</title>
-  <script src="../src/js/item.js" defer></script>
-  <script src="../src/js/cart.js" defer></script>
-  <script type="module"  src="../src/assets/data/menuData.js" defer></script>
-  <script src="../src/js/search.js" defer></script>
-
+  <script src="../src/javascript/cart.js" defer></script>
+  <script type="module" src="../src/javascript/search.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../src/css/style.css">
   
@@ -24,17 +17,20 @@
 <!-- Hero Section -->
 <section class="relative w-full h-screen mt-0">
   <!-- Navbar -->
-  <nav id="navbar" class="absolute top-0 left-0 w-full p-4 text-red-500 text-xl font-bold flex justify-between items-center z-50">    <div class="flex items-center space-x-4">
-      <a href="index.html">
-        <img src="./images/Pizza_Hut_logo 1.png" alt="Pizza Hut" class="w-12 h-auto">
-      </a>
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search..."
-        class="hidden md:block w-64 lg:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent"
-      />
-    </div>
+  <nav id="navbar" class="absolute top-0 left-0 w-full p-4 text-red-500 text-xl font-bold flex justify-between items-center z-50">    <div class="flex items-center space-x-4 relative">
+    <a href="index.html">
+      <img src="../src/assets/images/Pizza_Hut_logo 1.png" alt="Pizza Hut" class="w-12 h-auto">
+    </a>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search..."
+      class="hidden md:block w-64 lg:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent"
+    />
+    <!-- Search Results Dropdown -->
+    <div id="resultsDropdown" class="hidden absolute bg-white shadow-lg rounded-lg p-2 w-64 top-14 left-0"></div>
+  </div>
+  
     
     <!-- Desktop Menu -->
     <ul class="hidden md:flex space-x-8 items-center">
@@ -80,9 +76,9 @@
   </div>
 
   <!-- Background Images -->
-  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('./images/header.jpg');"></div>
-  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('./images/pasta.jpg'); animation-delay: 4s;"></div>
-  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('./images/restaurant.jpg'); animation-delay: 8s;"></div>
+  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('../src/assets/images/header.jpg');"></div>
+  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('../src/assets/images/pasta.jpg'); animation-delay: 4s;"></div>
+  <div class="absolute inset-0 w-full h-full animate-slide bg-cover bg-center" style="background-image: url('../src/assets/images/restaurant.jpg'); animation-delay: 8s;"></div>
 
   <!-- Hero Content -->
   <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white text-center px-6">
@@ -113,12 +109,12 @@
   <h2 class="text-3xl font-bold mb-4">Our most popular deals</h2>
   <div class="grid md:grid-cols-2 gap-6 mt-6">
     <a href="#menu" class="p-4 border rounded-lg shadow bg-white block">
-      <img src="./images/deal1.PNG" alt="Pizza" class="w-full rounded">
+      <img src="../src/assets/images/deal1.PNG" alt="Pizza" class="w-full rounded">
       <h3 class="text-xl font-semibold mt-2">Margherita Pizza Deal</h3>
       <p class="text-gray-600">Indulge in a delicious Margherita Pizza topped with fresh ingredients and melted cheese, served with four pieces of seasoned toast for a perfect combination of flavor and crunch.</p>
     </a>
     <a href="#menu" class="p-4 border rounded-lg shadow bg-white block">
-      <img src="./images/deal2.PNG" alt="Pasta" class="w-full rounded">
+      <img src="../src/assets/images/deal2.PNG" alt="Pasta" class="w-full rounded">
       <h3 class="text-xl font-semibold mt-2">Alfredo Pasta Combo</h3>
       <p class="text-gray-600">Enjoy any pizza of your choice, paired with creamy Alfredo Pasta, packed with rich white sauce and fresh veggies for a satisfying meal experience.</p>
     </a>
@@ -129,12 +125,12 @@
 <main id="menu" class="flex-grow p-6 text-center mt-16">
   <h2 class="text-3xl font-bold mb-4">Our Menu</h2>
 
-  <!-- Category Buttons -->
+<!-- Category Buttons -->
 <div class="flex justify-center space-x-4 mt-4">
-  <button onclick="filterMenu('Pizza', this)" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded category-btn">Pizza</button>
-  <button onclick="filterMenu('Appetizers', this)" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded category-btn">Appetizers</button>
-  <button onclick="filterMenu('Drinks', this)" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded category-btn">Drinks</button>
-  <button onclick="filterMenu('All', this)" class=" bg-red-500 hover:bg-gray-800 text-white px-4 py-2 rounded category-btn">All</button>
+  <button data-category="Pizza" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded category-btn">Pizza</button>
+  <button data-category="Appetizers" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded category-btn">Appetizers</button>
+  <button data-category="Drinks" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded category-btn">Drinks</button>
+  <button data-category="All" class="bg-red-500 hover:bg-gray-800 text-white px-4 py-2 rounded category-btn">All</button>
 </div>
 
 
@@ -208,9 +204,9 @@
       <a href="#" class="px-2">🐦 Twitter</a>
     </div>
   </footer>
- 
-  <script type="module" src="./menuData.js"></script>
-  <script type="module" src="../src/js/displayMenu.js"></script>
+  <script type="module" src="../src/javascript/item.js" defer></script>
+  <script type="module" src="../src/javascript/menuData.js"></script>
+  <script type="module" src="../src/javascript/displayMenu.js"></script>
 
 </body>
 

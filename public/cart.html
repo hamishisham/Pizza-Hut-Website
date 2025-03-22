@@ -6,15 +6,16 @@
     <title>Cart | Pizza Hut</title>
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 
-    <script src="../src/js/item.js" defer></script>
-    <script src="../src/js/cart.js" defer></script>
+    <script type="module" src="../src/javascript/item.js" defer></script>
+    <script type="module" src="../src/javascript/search.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 <body class="bg-white text-gray-900 flex flex-col min-h-screen">
   
      <!-- Navbar -->
    <nav id="navbar" class="absolute top-0 left-0 w-full p-4 text-red-500 text-xl font-bold flex justify-between items-center z-50">
-    <div class="flex items-center space-x-4 md:w-auto">
+    <div class="flex items-center space-x-4 relative">
       <a href="index.html">
         <img src="../src/assets/images/Pizza_Hut_logo 1.png" alt="Pizza Hut" class="w-12 h-auto">
       </a>
@@ -22,11 +23,12 @@
         type="text"
         id="searchInput"
         placeholder="Search..."
-        class="w-full md:w-64 lg:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent"
+        class="hidden md:block w-64 lg:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent"
       />
-      <div id="resultsDropdown" class="absolute bg-white border rounded-lg w-full mt-2 shadow-md hidden"></div>
+      <!-- Search Results Dropdown -->
+      <div id="resultsDropdown" class="hidden absolute bg-white shadow-lg rounded-lg p-2 w-64 top-14 left-0"></div>
     </div>
-
+    
     <ul class="hidden md:flex space-x-8 items-center">
       <li><a href="index.html#menu" class="hover:underline">Menu</a></li>
       <li>
@@ -161,5 +163,10 @@
 
         renderCart();
     </script>
+
+<script type="module" src="../src/javascript/menuData.js"></script>
+<script type="module"  src="../src/javascript/cart.js" defer></script>
+
+
 </body>
 </html>
