@@ -1,4 +1,4 @@
-import menuData from '../../public/menuData.js';
+import menuData from './menuData.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   const menuContainer = document.getElementById("menuContainer");

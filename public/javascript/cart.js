@@ -1,4 +1,4 @@
-import menuData from '../../public/menuData.js';
+import menuData from './menuData.js';
 
 // Add to Cart
 window.addToCart = function(itemName) {
