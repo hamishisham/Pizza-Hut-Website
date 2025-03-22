@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const itemName = urlParams.get('name');
 
-import menuData from './menuData.js';
+import menuData from '../../public/menuData.js';
 
 const item = menuData.flatMap(section => section.items).find(item => item.name === itemName);
 
